@@ -1,13 +1,15 @@
-import { useSelector } from 'react-redux';
+import { Container } from '@mui/material';
+import GamePage from './features/GamePage';
 import './App.css';
 
 function App() {
-  const status = useSelector((state) => state.status);
-  console.log('status: ', status);
   return (
     <>
       <div>
         <h1>Jeopardy</h1>
+        <Container>
+          <GamePage />
+        </Container>
       </div>
     </>
   );
