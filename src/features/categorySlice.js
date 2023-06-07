@@ -14,10 +14,6 @@ export const fetchCategories = createAsyncThunk(
   async (queryParams) => {
     try {
       const response = await axios.get(CATEGORIES_URL, { params: queryParams });
-      console.log(
-        'query: ',
-        await axios.get(CATEGORIES_URL, { params: queryParams })
-      );
       return response.data;
     } catch (error) {
       console.log(error.message);
