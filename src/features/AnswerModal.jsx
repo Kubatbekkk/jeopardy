@@ -1,8 +1,16 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { selectModalOpen, setModalState } from './categorySlice';
+import TextField from '@mui/material/TextField';
+import {
+  selectIsModalOpen,
+  selectSelectedClue,
+  setModalState,
+  addPoints,
+} from './categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@mui/material';
+import { useState } from 'react';
 
 const style = {
   position: 'absolute',
@@ -18,29 +26,67 @@ const style = {
 };
 
 export default function AnswerModal() {
-  const modalOpen = useSelector(selectModalOpen);
+  const isModalOpen = useSelector(selectIsModalOpen);
+  const clue = useSelector(selectSelectedClue);
   const dispatch = useDispatch();
+  const [answer, setAnswer] = useState('');
 
   const handleClose = () => {
-    dispatch(setModalState(!modalOpen));
+    if (clue.answer.toLowerCase() === answer) {
+      dispatch(addPoints(clue.value));
+      dispatch(setModalState(false));
+    }
+    if (clue.answer.toLowerCase() !== answer) {
+      dispatch(setModalState(false));
+    }
+  };
+
+  const handleAnswer = (e) => {
+    const trimmedValue = e.target.value.trim().toLowerCase();
+    setAnswer(trimmedValue);
   };
 
   return (
     <>
       <Modal
-        open={modalOpen}
-        onClose={handleClose}
+        open={isModalOpen}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
+        <>
+          <Box sx={style}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              gap="1rem"
+              alignItems="center"
+              justifyContent="space-around"
+            >
+              <Typography id="modal-modal-title" variant="body" component="h2">
+                {clue?.question}
+              </Typography>
+              <TextField
+                size="small"
+                sx={{ width: '100%' }}
+                onChange={handleAnswer}
+                error={answer.trim() === ''}
+                helperText={
+                  answer.trim() === '' ? 'Please fill in the answer' : ''
+                }
+              />
+              <Typography
+                id="modal-modal-description"
+                sx={{ mt: 2 }}
+                variant="caption"
+              >
+                hint: {clue?.answer}
+              </Typography>
+              <Button onClick={handleClose} variant="contained">
+                Answer
+              </Button>
+            </Box>
+          </Box>
+        </>
       </Modal>
     </>
   );

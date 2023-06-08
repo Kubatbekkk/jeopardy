@@ -5,7 +5,9 @@ const initialState = {
   categoryIDs: [68, 76, 94, 23, 24],
   tableData: [],
   selectedClue: null,
-  modalOpen: true,
+  isModalOpen: false,
+  points: 0,
+  clueClicked: [],
   status: 'idle',
   error: null,
 };
@@ -57,11 +59,19 @@ const categorySlice = createSlice({
   name: 'category',
   initialState,
   reducers: {
-    selectClue: (state, action) => {
+    setSelectedClue: (state, action) => {
       state.selectedClue = action.payload;
     },
     setModalState: (state, action) => {
-      state.modalOpen = action.payload;
+      state.isModalOpen = action.payload;
+    },
+    addPoints: (state, action) => {
+      state.points += action.payload;
+      console.log(state.points);
+    },
+    setClueClicked: (state, action) => {
+      const clueId = action.payload;
+      state.clueClicked.push(clueId);
     },
   },
   extraReducers(builder) {
@@ -80,11 +90,14 @@ const categorySlice = createSlice({
   },
 });
 // ? actions
-export const { selectClue, setModalState } = categorySlice.actions;
+export const { setSelectedClue, setModalState, addPoints, setClueClicked } =
+  categorySlice.actions;
 
 // ? selectors
 export const selectTableData = (state) => state.tableData;
-export const selectSelectClue = (state) => state.category.selectClue;
-export const selectModalOpen = (state) => state.modalOpen;
+export const selectSelectedClue = (state) => state.selectedClue;
+export const selectIsModalOpen = (state) => state.isModalOpen;
+export const selectClickedClues = (state) => state.clueClicked;
+export const selectPoints = (state) => state.points;
 
 export default categorySlice.reducer;
