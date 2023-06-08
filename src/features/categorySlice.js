@@ -2,19 +2,48 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  categories: [],
+  categoryIDs: [68, 76, 94, 23, 24],
+  tableData: [],
   status: 'idle',
   error: null,
 };
 
-const CATEGORIES_URL = 'http://jservice.io/api/categories';
+const CATEGORIES_URL = 'http://jservice.io/api';
 
-export const fetchCategories = createAsyncThunk(
-  'category/fetchCategories',
-  async (queryParams) => {
+export const fetchQuestionByCategory = createAsyncThunk(
+  'category/fetchQuestionByCategory',
+  async (_, { getState }) => {
     try {
-      const response = await axios.get(CATEGORIES_URL, { params: queryParams });
-      return response.data;
+      const { categoryIDs } = getState();
+
+      const categoryData = categoryIDs.map(async (item) => {
+        const res = await axios(`${CATEGORIES_URL}/category?id=${item}`);
+        return res.data;
+      });
+
+      const categoriesWithClues = await Promise.all(categoryData);
+
+      const transformedCategoriesWithClues = categoriesWithClues.map(
+        (category) => {
+          const filteredClues = category.clues
+            .filter((clue) => clue.value !== null)
+            .sort((a, b) => a.value - b.value)
+            .filter((clue, index, array) => {
+              if (index === 0) {
+                return true;
+              }
+              return clue.value !== array[index - 1].value;
+            })
+            .slice(0, 5);
+
+          return {
+            ...category,
+            clues: filteredClues,
+          };
+        }
+      );
+
+      return transformedCategoriesWithClues;
     } catch (error) {
       console.log(error.message);
       throw error;
@@ -28,20 +57,20 @@ const categorySlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchCategories.pending, (state) => {
+      .addCase(fetchQuestionByCategory.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchCategories.fulfilled, (state, action) => {
+      .addCase(fetchQuestionByCategory.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.categories = action.payload;
+        state.tableData = action.payload;
       })
-      .addCase(fetchCategories.rejected, (state, action) => {
+      .addCase(fetchQuestionByCategory.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });
   },
 });
 
-export const selectCategories = (state) => state.categories;
+export const selectTableData = (state) => state.tableData;
 
 export default categorySlice.reducer;

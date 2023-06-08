@@ -1,11 +1,19 @@
 import { Container } from '@mui/material';
 import GamePage from './features/GamePage';
 import './App.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchQuestionByCategory } from './features/categorySlice';
 
 function App() {
   const status = useSelector((state) => state.status);
   const error = useSelector((state) => state.error);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (status === 'idle') dispatch(fetchQuestionByCategory());
+  }, [status, dispatch]);
 
   let content;
   if (status === 'loading') {
@@ -23,11 +31,7 @@ function App() {
     content = <p>{error}</p>;
   }
 
-  return (
-    <>
-      <main>{content}</main>
-    </>
-  );
+  return <main>{content}</main>;
 }
 
 export default App;
