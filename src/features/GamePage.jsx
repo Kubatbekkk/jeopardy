@@ -6,12 +6,18 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import { selectTableData } from './categorySlice';
-import { useSelector } from 'react-redux';
+import { selectClue, selectTableData } from './categorySlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
+import AnswerModal from './AnswerModal';
 
 function GamePage() {
   const questionsWithCategories = useSelector(selectTableData);
+  const dispatch = useDispatch();
+
+  const handleClueClick = (clue) => {
+    dispatch(selectClue(clue));
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -35,7 +41,11 @@ function GamePage() {
               </TableCell>
               {category.clues.map((clue) => (
                 <TableCell key={clue.id}>
-                  <Button variant="outlined" color="inherit">
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    onClick={() => handleClueClick(clue)}
+                  >
                     {clue.value}
                   </Button>
                 </TableCell>
@@ -44,6 +54,7 @@ function GamePage() {
           ))}
         </TableBody>
       </Table>
+      <AnswerModal />
     </TableContainer>
   );
 }

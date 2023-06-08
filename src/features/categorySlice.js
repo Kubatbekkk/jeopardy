@@ -4,6 +4,8 @@ import axios from 'axios';
 const initialState = {
   categoryIDs: [68, 76, 94, 23, 24],
   tableData: [],
+  selectedClue: null,
+  modalOpen: true,
   status: 'idle',
   error: null,
 };
@@ -54,7 +56,14 @@ export const fetchQuestionByCategory = createAsyncThunk(
 const categorySlice = createSlice({
   name: 'category',
   initialState,
-  reducers: {},
+  reducers: {
+    selectClue: (state, action) => {
+      state.selectedClue = action.payload;
+    },
+    setModalState: (state, action) => {
+      state.modalOpen = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchQuestionByCategory.pending, (state) => {
@@ -70,7 +79,12 @@ const categorySlice = createSlice({
       });
   },
 });
+// ? actions
+export const { selectClue, setModalState } = categorySlice.actions;
 
+// ? selectors
 export const selectTableData = (state) => state.tableData;
+export const selectSelectClue = (state) => state.category.selectClue;
+export const selectModalOpen = (state) => state.modalOpen;
 
 export default categorySlice.reducer;
