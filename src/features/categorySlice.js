@@ -6,6 +6,7 @@ const initialState = {
   tableData: [],
   selectedClue: null,
   isModalOpen: false,
+  isAnswerCorrect: null,
   points: 0,
   clueClicked: {},
   status: 'idle',
@@ -55,6 +56,18 @@ export const fetchQuestionByCategory = createAsyncThunk(
   }
 );
 
+export const startIsAnswerCorrectChange = createAsyncThunk(
+  'category/startIsAnswerCorrectChange',
+  async (payload, { dispatch }) => {
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        dispatch(categorySlice.actions.setIsAnswerCorrect(payload));
+        resolve();
+      }, 2_000);
+    });
+  }
+);
+
 const categorySlice = createSlice({
   name: 'category',
   initialState,
@@ -72,10 +85,12 @@ const categorySlice = createSlice({
       state.points -= Number(action.payload);
     },
     setClueClicked: (state, action) => {
-      // const clueId = action.payload;
-      // state.clueClicked.push(clueId);
       const { id, isCorrect } = action.payload;
       state.clueClicked[id] = isCorrect;
+    },
+    setIsAnswerCorrect: (state, action) => {
+      state.isAnswerCorrect = action.payload;
+      console.log(action.payload);
     },
   },
   extraReducers(builder) {
@@ -100,6 +115,7 @@ export const {
   addPoints,
   setClueClicked,
   subtractPoints,
+  setIsAnswerCorrect,
 } = categorySlice.actions;
 
 // ? selectors
@@ -108,5 +124,6 @@ export const selectSelectedClue = (state) => state.selectedClue;
 export const selectIsModalOpen = (state) => state.isModalOpen;
 export const selectClickedClues = (state) => state.clueClicked;
 export const selectPoints = (state) => state.points;
+export const selectIsAnswerCorrect = (state) => state.isAnswerCorrect;
 
 export default categorySlice.reducer;

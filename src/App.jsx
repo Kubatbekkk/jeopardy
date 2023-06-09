@@ -1,13 +1,17 @@
-import { Container } from '@mui/material';
+import { Alert, Box, Container } from '@mui/material';
 import GamePage from './features/GamePage';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchQuestionByCategory } from './features/categorySlice';
+import {
+  fetchQuestionByCategory,
+  selectIsAnswerCorrect,
+} from './features/categorySlice';
 
 function App() {
   const status = useSelector((state) => state.status);
   const error = useSelector((state) => state.error);
+  const isAnswerCorrect = useSelector(selectIsAnswerCorrect);
 
   const dispatch = useDispatch();
 
@@ -21,8 +25,25 @@ function App() {
   } else if (status === 'succeeded') {
     content = (
       <>
-        <h1>Jeopardy</h1>
         <Container>
+          <Box
+            display="flex"
+            flexDirection="row"
+            gap="1rem"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <h1 className="heading__text">Jeopardy</h1>
+            {isAnswerCorrect !== null && (
+              <Box width="50%">
+                <Alert severity={`${isAnswerCorrect ? 'success' : 'error'}`}>
+                  {isAnswerCorrect
+                    ? 'The answer is correct'
+                    : 'The answer is incorrect'}
+                </Alert>
+              </Box>
+            )}
+          </Box>
           <GamePage />
         </Container>
       </>

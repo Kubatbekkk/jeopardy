@@ -22,7 +22,7 @@ const GamePage = () => {
       <Table sx={{ minWidth: 750 }} aria-label="caption table">
         <caption>
           <Typography variant="h6" fontWeight="bold" align="center">
-            {points}
+            Your Points: {points}
           </Typography>
         </caption>
         <TableHead sx={{ background: '#C2DEDC', color: 'white' }}>

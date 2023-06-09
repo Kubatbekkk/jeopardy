@@ -9,6 +9,8 @@ import {
   addPoints,
   subtractPoints,
   setClueClicked,
+  startIsAnswerCorrectChange,
+  setIsAnswerCorrect,
 } from './categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
@@ -49,6 +51,8 @@ const AnswerModal = () => {
 
     dispatch(setClueClicked(payload));
     dispatch(setModalState(false));
+    dispatch(setIsAnswerCorrect(isAnswerCorrect));
+    dispatch(startIsAnswerCorrectChange(null));
     setAnswer('');
   };
 

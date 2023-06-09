@@ -71,16 +71,17 @@ button:focus-visible {
 /* ClueButton Component */
 
 .clue__btn {
-  background: transparent;
+  background: rgba(202, 116, 10, 0.816);
   color: #213547;
-  border: 1px solid #213547ce;
+  border: 1px solid #dba00aeb;
   outline: none;
+  font-weight: bold;
   transition: all 0.3s ease-in;
 }
 
 .clue__btn:hover {
-  background: #2135473b;
-  color: #000;
+  background: #ac470cc1;
+  color: rgb(233, 209, 209);
   border: 1px solid #213547;
   outline: none;
 }
@@ -88,14 +89,18 @@ button:focus-visible {
 .clue__btn:disabled {
   pointer-events: none;
   cursor: default;
+  text-decoration: line-through;
+  font-weight: normal;
 }
 
 .clue__btn--correct {
-  color: rgb(4, 140, 24);
-  border: 1px solid rgb(4, 140, 24);
+  background: rgba(137, 179, 143, 0.505);
+  color: rgb(2, 22, 6);
+  border: none;
 }
 
 .clue__btn--incorrect {
-  color: rgb(180, 46, 13);
-  border: 1px solid rgb(180, 46, 13);
+  background: rgba(184, 116, 99, 0.395);
+  color: rgb(44, 10, 2);
+  border: none;
 }
