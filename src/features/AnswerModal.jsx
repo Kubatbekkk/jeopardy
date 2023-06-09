@@ -8,6 +8,7 @@ import {
   setModalState,
   addPoints,
   subtractPoints,
+  setClueClicked,
 } from './categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
@@ -33,15 +34,22 @@ const AnswerModal = () => {
   const [answer, setAnswer] = useState('');
 
   const handleClose = () => {
-    if (clue.answer.toLowerCase() === answer) {
+    const isAnswerCorrect = clue.answer.toLowerCase() === answer;
+
+    const payload = {
+      id: clue.id,
+      isCorrect: isAnswerCorrect,
+    };
+
+    if (isAnswerCorrect) {
       dispatch(addPoints(clue.value));
-      dispatch(setModalState(false));
-      setAnswer('');
-    } else if (clue.answer.toLowerCase() !== answer) {
+    } else {
       dispatch(subtractPoints(clue.value));
-      dispatch(setModalState(false));
-      setAnswer('');
     }
+
+    dispatch(setClueClicked(payload));
+    dispatch(setModalState(false));
+    setAnswer('');
   };
 
   const handleAnswer = (e) => {

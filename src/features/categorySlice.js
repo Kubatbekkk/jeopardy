@@ -7,7 +7,7 @@ const initialState = {
   selectedClue: null,
   isModalOpen: false,
   points: 0,
-  clueClicked: [],
+  clueClicked: {},
   status: 'idle',
   error: null,
 };
@@ -72,8 +72,10 @@ const categorySlice = createSlice({
       state.points -= Number(action.payload);
     },
     setClueClicked: (state, action) => {
-      const clueId = action.payload;
-      state.clueClicked.push(clueId);
+      // const clueId = action.payload;
+      // state.clueClicked.push(clueId);
+      const { id, isCorrect } = action.payload;
+      state.clueClicked[id] = isCorrect;
     },
   },
   extraReducers(builder) {

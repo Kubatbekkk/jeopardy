@@ -67,3 +67,35 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* ClueButton Component */
+
+.clue__btn {
+  background: transparent;
+  color: #213547;
+  border: 1px solid #213547ce;
+  outline: none;
+  transition: all 0.3s ease-in;
+}
+
+.clue__btn:hover {
+  background: #2135473b;
+  color: #000;
+  border: 1px solid #213547;
+  outline: none;
+}
+
+.clue__btn:disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.clue__btn--correct {
+  color: rgb(4, 140, 24);
+  border: 1px solid rgb(4, 140, 24);
+}
+
+.clue__btn--incorrect {
+  color: rgb(180, 46, 13);
+  border: 1px solid rgb(180, 46, 13);
+}
