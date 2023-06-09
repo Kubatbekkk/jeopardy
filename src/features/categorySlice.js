@@ -63,7 +63,7 @@ export const startIsAnswerCorrectChange = createAsyncThunk(
       setTimeout(() => {
         dispatch(categorySlice.actions.setIsAnswerCorrect(payload));
         resolve();
-      }, 2_000);
+      }, 3_000);
     });
   }
 );
