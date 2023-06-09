@@ -2,18 +2,15 @@ import {
   setSelectedClue,
   setModalState,
   selectClickedClues,
-  // selectSelectedClue,
   setClueClicked,
 } from './categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 
-function ClueButton({ clue }) {
+const ClueButton = ({ clue }) => {
   const dispatch = useDispatch();
   const clickedClues = useSelector(selectClickedClues);
-  // const selectedClue = useSelector(selectSelectedClue);
   const isClicked = clickedClues.includes(clue.id);
-  // const isAnswered = selectedClue?.id === clue.id;
 
   const handleClick = () => {
     dispatch(setSelectedClue(clue));
@@ -28,6 +25,6 @@ function ClueButton({ clue }) {
       </Button>
     </>
   );
-}
+};
 
 export default ClueButton;

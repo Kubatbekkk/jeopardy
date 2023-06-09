@@ -7,6 +7,7 @@ import {
   selectSelectedClue,
   setModalState,
   addPoints,
+  subtractPoints,
 } from './categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
@@ -25,7 +26,7 @@ const style = {
   p: 4,
 };
 
-export default function AnswerModal() {
+const AnswerModal = () => {
   const isModalOpen = useSelector(selectIsModalOpen);
   const clue = useSelector(selectSelectedClue);
   const dispatch = useDispatch();
@@ -35,9 +36,11 @@ export default function AnswerModal() {
     if (clue.answer.toLowerCase() === answer) {
       dispatch(addPoints(clue.value));
       dispatch(setModalState(false));
-    }
-    if (clue.answer.toLowerCase() !== answer) {
+      setAnswer('');
+    } else if (clue.answer.toLowerCase() !== answer) {
+      dispatch(subtractPoints(clue.value));
       dispatch(setModalState(false));
+      setAnswer('');
     }
   };
 
@@ -67,12 +70,9 @@ export default function AnswerModal() {
               </Typography>
               <TextField
                 size="small"
+                placeholder="Enter your answer"
                 sx={{ width: '100%' }}
                 onChange={handleAnswer}
-                error={answer.trim() === ''}
-                helperText={
-                  answer.trim() === '' ? 'Please fill in the answer' : ''
-                }
               />
               <Typography
                 id="modal-modal-description"
@@ -81,7 +81,11 @@ export default function AnswerModal() {
               >
                 hint: {clue?.answer}
               </Typography>
-              <Button onClick={handleClose} variant="contained">
+              <Button
+                onClick={handleClose}
+                variant="contained"
+                disabled={!answer}
+              >
                 Answer
               </Button>
             </Box>
@@ -90,4 +94,6 @@ export default function AnswerModal() {
       </Modal>
     </>
   );
-}
+};
+
+export default AnswerModal;

@@ -11,15 +11,20 @@ import { useSelector } from 'react-redux';
 
 import ClueButton from './ClueButton';
 import AnswerModal from './AnswerModal';
+import { Typography } from '@mui/material';
 
-function GamePage() {
+const GamePage = () => {
   const questionsWithCategories = useSelector(selectTableData);
   const points = useSelector(selectPoints);
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 750 }} aria-label="caption table">
-        <caption>{points}</caption>
+        <caption>
+          <Typography variant="h6" fontWeight="bold" align="center">
+            {points}
+          </Typography>
+        </caption>
         <TableHead sx={{ background: '#C2DEDC', color: 'white' }}>
           <TableRow>
             <TableCell sx={{ fontWeight: 'bold' }}>Category</TableCell>
@@ -33,7 +38,11 @@ function GamePage() {
         <TableBody>
           {questionsWithCategories.map((category) => (
             <TableRow key={category.id}>
-              <TableCell component="th" scope="row">
+              <TableCell
+                component="th"
+                scope="row"
+                sx={{ textTransform: 'capitalize' }}
+              >
                 {category.title}
               </TableCell>
               {category.clues.map((clue) => (
@@ -48,6 +57,6 @@ function GamePage() {
       <AnswerModal />
     </TableContainer>
   );
-}
+};
 
 export default GamePage;

@@ -66,8 +66,10 @@ const categorySlice = createSlice({
       state.isModalOpen = action.payload;
     },
     addPoints: (state, action) => {
-      state.points += action.payload;
-      console.log(state.points);
+      state.points += Number(action.payload);
+    },
+    subtractPoints: (state, action) => {
+      state.points -= Number(action.payload);
     },
     setClueClicked: (state, action) => {
       const clueId = action.payload;
@@ -90,8 +92,13 @@ const categorySlice = createSlice({
   },
 });
 // ? actions
-export const { setSelectedClue, setModalState, addPoints, setClueClicked } =
-  categorySlice.actions;
+export const {
+  setSelectedClue,
+  setModalState,
+  addPoints,
+  setClueClicked,
+  subtractPoints,
+} = categorySlice.actions;
 
 // ? selectors
 export const selectTableData = (state) => state.tableData;
