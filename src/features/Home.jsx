@@ -1,0 +1,65 @@
+import { TextField, Typography, Button } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { selectUser, setUser } from './categorySlice';
+
+const Home = () => {
+  const user = useSelector(selectUser);
+  const [userName, setUserName] = useState(user);
+  const [error, setError] = useState('');
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onUserNameChange = (e) => {
+    const input = e.target.value;
+    const regex = /^[A-Za-z\s]+$/;
+    if (regex.test(input) || input === '') {
+      setUserName(input);
+      dispatch(setUser(userName));
+      setError('');
+    } else {
+      setError('Only letters are allowed');
+    }
+  };
+
+  const handleSaveUserAndClose = () => {
+    if (userName.trim() !== '') {
+      localStorage.setItem('user', userName);
+      navigate('/game');
+    } else {
+      setError('Please enter a valid name');
+    }
+  };
+
+  return (
+    <Stack width={300}>
+      <Typography>Enter Your Name</Typography>
+      <TextField
+        autoComplete="off"
+        value={userName}
+        label="Enter Your Name"
+        variant="filled"
+        onChange={onUserNameChange}
+        error={error !== ''}
+        helperText={error}
+        sx={{
+          backgroundImage:
+            'linear-gradient(to right top, #969ba4, #8ba4b0, #7eadb3, #7bb6a9, #8cbb94)',
+        }}
+        margin="normal"
+      />
+      <Button
+        variant="contained"
+        disabled={!user}
+        onClick={handleSaveUserAndClose}
+      >
+        Start Game
+      </Button>
+    </Stack>
+  );
+};
+
+export default Home;

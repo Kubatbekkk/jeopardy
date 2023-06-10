@@ -5,8 +5,15 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
+  background-image: linear-gradient(
+    to right top,
+    #051937,
+    #004871,
+    #007d9e,
+    #00b5b2,
+    #12ebac
+  );
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
