@@ -7,28 +7,24 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button, Typography } from '@mui/material';
 
-import {
-  selectTableData,
-  selectPoints,
-  selectUser,
-  removeUser,
-} from './categorySlice';
+import { selectTableData, selectPoints, removeUser } from './categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ClueButton from './ClueButton';
 import AnswerModal from './AnswerModal';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const GameTable = () => {
   const questionsWithCategories = useSelector(selectTableData);
   const points = useSelector(selectPoints);
-  const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  console.log(user);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(removeUser());
     localStorage.removeItem('user');
+    localStorage.removeItem('clue-clicked');
+    navigate('/');
   };
 
   return (

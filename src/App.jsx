@@ -8,7 +8,7 @@ import RequireAuth from './components/RequireAuth';
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route index path="/" element={<Home />} />
       <Route element={<RequireAuth />}>
         <Route path="/game" element={<Game />} />
         <Route path="/stats" element={<Statistics />} />

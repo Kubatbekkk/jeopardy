@@ -2,7 +2,6 @@ import {
   setSelectedClue,
   setModalState,
   selectClickedClues,
-  setClueClicked,
 } from './categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,7 +14,6 @@ const ClueButton = ({ clue }) => {
   const handleClick = () => {
     dispatch(setSelectedClue(clue));
     dispatch(setModalState(true));
-    dispatch(setClueClicked(clue.id));
   };
 
   return (

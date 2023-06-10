@@ -9,7 +9,7 @@ const initialState = {
   isModalOpen: false,
   isAnswerCorrect: null,
   points: 0,
-  clueClicked: {},
+  clueClicked: JSON.parse(localStorage.getItem('clue-clicked')) || {},
   status: 'idle',
   error: null,
 };
