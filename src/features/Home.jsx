@@ -1,6 +1,6 @@
 import { TextField, Typography, Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectUser, setUser } from './categorySlice';
@@ -9,16 +9,20 @@ const Home = () => {
   const user = useSelector(selectUser);
   const [userName, setUserName] = useState(user);
   const [error, setError] = useState('');
+  const userRef = useRef();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
 
   const onUserNameChange = (e) => {
     const input = e.target.value;
     const regex = /^[A-Za-z\s]+$/;
     if (regex.test(input) || input === '') {
       setUserName(input);
-      dispatch(setUser(userName));
       setError('');
     } else {
       setError('Only letters are allowed');
@@ -28,6 +32,7 @@ const Home = () => {
   const handleSaveUserAndClose = () => {
     if (userName.trim() !== '') {
       localStorage.setItem('user', userName);
+      dispatch(setUser(userName));
       navigate('/game');
     } else {
       setError('Please enter a valid name');
@@ -43,6 +48,7 @@ const Home = () => {
         label="Enter Your Name"
         variant="filled"
         onChange={onUserNameChange}
+        inputRef={userRef}
         error={error !== ''}
         helperText={error}
         sx={{
@@ -53,7 +59,7 @@ const Home = () => {
       />
       <Button
         variant="contained"
-        disabled={!user}
+        disabled={!userName}
         onClick={handleSaveUserAndClose}
       >
         Start Game
