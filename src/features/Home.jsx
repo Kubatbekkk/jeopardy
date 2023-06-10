@@ -21,6 +21,7 @@ const Home = () => {
   const onUserNameChange = (e) => {
     const input = e.target.value;
     const regex = /^[A-Za-z\s]+$/;
+
     if (regex.test(input) || input === '') {
       setUserName(input);
       setError('');

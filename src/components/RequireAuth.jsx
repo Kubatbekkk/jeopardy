@@ -1,16 +1,16 @@
 import { useSelector } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { selectUser } from '../features/categorySlice';
-import Home from '../features/Home';
 
 const RequireAuth = () => {
   const user = useSelector(selectUser);
+  const location = useLocation();
 
-  if (!user) {
-    return <Home />;
-  }
-
-  return <Outlet />;
+  return user ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/" state={{ from: location }} replace />
+  );
 };
 
 export default RequireAuth;

@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ClueButton from './ClueButton';
 import AnswerModal from './AnswerModal';
+import { Link } from 'react-router-dom';
 
 const GameTable = () => {
   const questionsWithCategories = useSelector(selectTableData);
@@ -41,6 +42,9 @@ const GameTable = () => {
           >
             <Typography variant="h6" fontWeight="bold" align="center">
               Your Points: {points}
+            </Typography>
+            <Typography variant="h6" fontWeight="bold" align="center">
+              <Link to="/stats">Statistics</Link>
             </Typography>
             <Button variant="outlined" color="warning" onClick={handleLogout}>
               Log Out
