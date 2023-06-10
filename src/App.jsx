@@ -1,5 +1,5 @@
 import { Alert, Box, Container } from '@mui/material';
-import GamePage from './features/GamePage';
+import GameTable from './features/GameTable';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -44,7 +44,7 @@ function App() {
               </Box>
             )}
           </Box>
-          <GamePage />
+          <GameTable />
         </Container>
       </>
     );

@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const initialState = {
   categoryIDs: [68, 76, 94, 23, 24],
+  user: localStorage.getItem('user') || '',
   tableData: [],
   selectedClue: null,
   isModalOpen: false,
@@ -92,6 +93,12 @@ const categorySlice = createSlice({
       state.isAnswerCorrect = action.payload;
       console.log(action.payload);
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
+    removeUser: (state) => {
+      state.user = '';
+    },
   },
   extraReducers(builder) {
     builder
@@ -116,6 +123,8 @@ export const {
   setClueClicked,
   subtractPoints,
   setIsAnswerCorrect,
+  setUser,
+  removeUser,
 } = categorySlice.actions;
 
 // ? selectors
@@ -125,5 +134,6 @@ export const selectIsModalOpen = (state) => state.isModalOpen;
 export const selectClickedClues = (state) => state.clueClicked;
 export const selectPoints = (state) => state.points;
 export const selectIsAnswerCorrect = (state) => state.isAnswerCorrect;
+export const selectUser = (state) => state.user;
 
 export default categorySlice.reducer;

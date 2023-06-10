@@ -71,7 +71,7 @@ button:focus-visible {
 /* ClueButton Component */
 
 .clue__btn {
-  background: #b8f8b0;
+  background: #7cee6d56;
   color: #042f2d;
   border: 1px solid #b1e9d9;
   outline: none;
@@ -94,7 +94,7 @@ button:focus-visible {
 }
 
 .clue__btn--correct {
-  background: #acf2ca;
+  background: #3aee88;
   color: #8f9390;
   border: none;
 }

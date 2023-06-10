@@ -5,34 +5,55 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Box, Button, Typography } from '@mui/material';
 
-import { selectTableData, selectPoints } from './categorySlice';
-import { useSelector } from 'react-redux';
+import {
+  selectTableData,
+  selectPoints,
+  selectUser,
+  removeUser,
+} from './categorySlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ClueButton from './ClueButton';
 import AnswerModal from './AnswerModal';
-import { Typography } from '@mui/material';
 
-const GamePage = () => {
+const GameTable = () => {
   const questionsWithCategories = useSelector(selectTableData);
   const points = useSelector(selectPoints);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  console.log(user);
+
+  const handleLogout = () => {
+    dispatch(removeUser());
+    localStorage.removeItem('user');
+  };
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 750 }} aria-label="caption table">
         <caption>
-          <Typography variant="h6" fontWeight="bold" align="center">
-            Your Points: {points}
-          </Typography>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Typography variant="h6" fontWeight="bold" align="center">
+              Your Points: {points}
+            </Typography>
+            <Button variant="outlined" color="warning" onClick={handleLogout}>
+              Log Out
+            </Button>
+          </Box>
         </caption>
         <TableHead sx={{ background: '#C2DEDC', color: 'white' }}>
           <TableRow>
-            <TableCell sx={{ fontWeight: 'bold' }}>Category</TableCell>
-            <TableCell sx={{ fontWeight: 'bold' }}>#1</TableCell>
-            <TableCell sx={{ fontWeight: 'bold' }}>#2</TableCell>
-            <TableCell sx={{ fontWeight: 'bold' }}>#3</TableCell>
-            <TableCell sx={{ fontWeight: 'bold' }}>#4</TableCell>
-            <TableCell sx={{ fontWeight: 'bold' }}>#5</TableCell>
+            {['Category', '#1', '#2', '#3', '#4', '#5'].map((item) => (
+              <TableCell key={item} sx={{ fontWeight: 'bold' }}>
+                {item}
+              </TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -59,4 +80,4 @@ const GamePage = () => {
   );
 };
 
-export default GamePage;
+export default GameTable;
