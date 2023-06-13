@@ -15,7 +15,6 @@ const ClueButton = ({ clue }) => {
   };
 
   return (
-    <>
       <button
         onClick={handleClick}
         disabled={isClicked}
@@ -29,7 +28,6 @@ const ClueButton = ({ clue }) => {
       >
         {clue.value}
       </button>
-    </>
   );
 };
 
