@@ -8,7 +8,7 @@ const initialState = {
   selectedClue: null,
   isModalOpen: false,
   isAnswerCorrect: null,
-  points: 0,
+  points: JSON.parse(localStorage.getItem('points')) || 0,
   clueClicked: JSON.parse(localStorage.getItem('clue-clicked')) || {},
   status: 'idle',
   error: null,
@@ -117,6 +117,7 @@ const categorySlice = createSlice({
       });
   },
 });
+
 // ? actions
 export const {
   setSelectedClue,
