@@ -2,10 +2,8 @@ import { Alert, Box, Container } from '@mui/material';
 import GameTable from './GameTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import {
-  fetchQuestionByCategory,
-  selectIsAnswerCorrect,
-} from './categorySlice';
+import { fetchQuestionByCategory } from './categorySlice';
+import { selectIsAnswerCorrect } from './selectors';
 
 function Game() {
   const status = useSelector((state) => state.status);

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import { selectStatus, selectUser } from '../features/categorySlice';
+import { selectStatus, selectUser } from '../features/selectors';
 
 const RequireAuth = ({ children }) => {
   const user = useSelector(selectUser);

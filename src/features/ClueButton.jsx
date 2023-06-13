@@ -1,9 +1,7 @@
-import {
-  setSelectedClue,
-  setModalState,
-  selectClickedClues,
-} from './categorySlice';
+import { selectClickedClues } from './selectors';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { setSelectedClue, setModalState } from './categorySlice';
 
 const ClueButton = ({ clue }) => {
   const dispatch = useDispatch();

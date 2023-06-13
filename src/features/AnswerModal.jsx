@@ -3,8 +3,6 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import {
-  selectIsModalOpen,
-  selectSelectedClue,
   setModalState,
   addPoints,
   subtractPoints,
@@ -12,6 +10,7 @@ import {
   startIsAnswerCorrectChange,
   setIsAnswerCorrect,
 } from './categorySlice';
+import { selectIsModalOpen, selectSelectedClue } from './selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { useState } from 'react';

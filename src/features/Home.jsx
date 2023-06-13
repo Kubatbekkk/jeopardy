@@ -3,12 +3,8 @@ import Stack from '@mui/material/Stack';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import {
-  selectUser,
-  setUser,
-  removeUser,
-  clearClueClicked,
-} from './categorySlice';
+import { setUser, removeUser, clearClueClicked } from './categorySlice';
+import { selectUser } from './selectors';
 
 const Home = () => {
   const user = useSelector(selectUser);

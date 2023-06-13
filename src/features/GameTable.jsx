@@ -7,13 +7,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button, Typography } from '@mui/material';
 
-import {
-  selectTableData,
-  selectPoints,
-  selectClickedClues,
-  clearClueClicked,
-  clearPoints,
-} from './categorySlice';
+import { selectTableData, selectPoints, selectClickedClues } from './selectors';
+import { clearClueClicked, clearPoints } from './categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ClueButton from './ClueButton';

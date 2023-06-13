@@ -1,10 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  clearClueClicked,
-  clearPoints,
-  selectClickedClues,
-  selectPoints,
-} from './categorySlice';
+import { selectClickedClues, selectPoints } from './selectors';
+import { clearClueClicked, clearPoints } from './categorySlice';
 import {
   Table,
   TableBody,
