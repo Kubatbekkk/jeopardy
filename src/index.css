@@ -5,8 +5,15 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
+  background-image: linear-gradient(
+    to right top,
+    #051937,
+    #004871,
+    #007d9e,
+    #00b5b2,
+    #12ebac
+  );
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -16,11 +23,12 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #747476;
   text-decoration: inherit;
+  transition: color 0.3s ease-in;
 }
 a:hover {
-  color: #535bf2;
+  color: #101016;
 }
 
 body {
@@ -66,4 +74,41 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* ClueButton Component */
+
+.clue__btn {
+  background: #7cee6d56;
+  color: #042f2d;
+  border: 1px solid #b1e9d9;
+  outline: none;
+  font-weight: bold;
+  transition: all 0.3s ease-in;
+}
+
+.clue__btn:hover {
+  color: #b8f8b0;
+  background: #042f2d;
+  border: 1px solid #213547;
+  outline: none;
+}
+
+.clue__btn:disabled {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: line-through;
+  font-weight: normal;
+}
+
+.clue__btn--correct {
+  background: #3aee88;
+  color: #8f9390;
+  border: none;
+}
+
+.clue__btn--incorrect {
+  background: #ffe3f4;
+  color: #8f9390;
+  border: none;
 }
