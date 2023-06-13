@@ -121,7 +121,6 @@ const categorySlice = createSlice({
   },
 });
 
-// ? actions
 export const {
   setSelectedClue,
   setModalState,

@@ -42,9 +42,12 @@ const Home = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('clue-clicked');
-    localStorage.removeItem('points');
-    localStorage.removeItem('user');
+    const localStorageKeys = ['clue-clicked', 'points', 'user'];
+
+    localStorageKeys.forEach((key) => {
+      localStorage.removeItem(key);
+    });
+
     dispatch(clearClueClicked());
     dispatch(removeUser());
     setUserName('');
