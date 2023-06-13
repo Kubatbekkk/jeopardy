@@ -15,6 +15,7 @@ import {
   Paper,
   Box,
   Button,
+  Typography,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -76,20 +77,30 @@ const Statistics = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow>
-            <TableCell sx={{ fontWeight: 'bold' }} align="justify">
-              {answeredCount}
-            </TableCell>
-            <TableCell sx={{ fontWeight: 'bold' }} align="justify">
-              {correctCount}
-            </TableCell>
-            <TableCell sx={{ fontWeight: 'bold' }} align="justify">
-              {incorrectCount}
-            </TableCell>
-            <TableCell sx={{ fontWeight: 'bold' }} align="justify">
-              {points}
-            </TableCell>
-          </TableRow>
+          {answeredCount > 0 ? (
+            <TableRow>
+              <TableCell sx={{ fontWeight: 'bold' }} align="justify">
+                {answeredCount}
+              </TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }} align="justify">
+                {correctCount}
+              </TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }} align="justify">
+                {incorrectCount}
+              </TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }} align="justify">
+                {points}
+              </TableCell>
+            </TableRow>
+          ) : (
+            <TableRow>
+              <TableCell colSpan={4} align="center">
+                <Typography variant="h5">
+                  You did not answer any questions
+                </Typography>
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>

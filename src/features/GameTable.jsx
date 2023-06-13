@@ -54,7 +54,7 @@ const GameTable = () => {
             <Button variant="contained" color="primary" onClick={handleNewGame}>
               New Game
             </Button>
-            <Link to="/stats">
+            <Link to="/">
               <Button variant="outlined" color="warning">
                 Finish Game
               </Button>
