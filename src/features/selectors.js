@@ -1,4 +1,3 @@
-// ? selectors
 export const selectTableData = (state) => state.tableData;
 export const selectSelectedClue = (state) => state.selectedClue;
 export const selectIsModalOpen = (state) => state.isModalOpen;

@@ -31,8 +31,11 @@ const Statistics = () => {
   const navigate = useNavigate();
 
   const handleNewGame = () => {
-    localStorage.removeItem('points');
-    localStorage.removeItem('clue-clicked');
+    const localStorageKeys = ['clue-clicked', 'points'];
+    localStorageKeys.forEach((key) => {
+      localStorage.removeItem(key);
+    });
+
     dispatch(clearClueClicked());
     dispatch(clearPoints());
     navigate('/game');

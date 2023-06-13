@@ -21,7 +21,7 @@ const Home = () => {
 
   const onUserNameChange = (e) => {
     const input = e.target.value;
-    const regex = /^[A-Za-z\s]+$/;
+    const regex = /^[A-Za-zА-Яа-я\s]+$/;
 
     if (regex.test(input) || input === '') {
       setUserName(input);
@@ -42,9 +42,12 @@ const Home = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('clue-clicked');
-    localStorage.removeItem('points');
-    localStorage.removeItem('user');
+    const localStorageKeys = ['clue-clicked', 'points', 'user'];
+
+    localStorageKeys.forEach((key) => {
+      localStorage.removeItem(key);
+    });
+
     dispatch(clearClueClicked());
     dispatch(removeUser());
     setUserName('');
