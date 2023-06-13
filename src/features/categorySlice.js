@@ -89,9 +89,11 @@ const categorySlice = createSlice({
       const { id, isCorrect } = action.payload;
       state.clueClicked[id] = isCorrect;
     },
+    clearClueClicked: (state) => {
+      state.clueClicked = {};
+    },
     setIsAnswerCorrect: (state, action) => {
       state.isAnswerCorrect = action.payload;
-      console.log(action.payload);
     },
     setUser: (state, action) => {
       state.user = action.payload;
@@ -125,6 +127,7 @@ export const {
   setIsAnswerCorrect,
   setUser,
   removeUser,
+  clearClueClicked,
 } = categorySlice.actions;
 
 // ? selectors

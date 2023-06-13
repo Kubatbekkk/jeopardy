@@ -7,23 +7,41 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button, Typography } from '@mui/material';
 
-import { selectTableData, selectPoints, removeUser } from './categorySlice';
+import {
+  selectTableData,
+  selectPoints,
+  removeUser,
+  selectClickedClues,
+  clearClueClicked,
+} from './categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ClueButton from './ClueButton';
 import AnswerModal from './AnswerModal';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const GameTable = () => {
   const questionsWithCategories = useSelector(selectTableData);
   const points = useSelector(selectPoints);
+  const clickedClues = useSelector(selectClickedClues);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    dispatch(removeUser());
-    localStorage.removeItem('user');
+  useEffect(() => {
+    localStorage.setItem('clue-clicked', JSON.stringify(clickedClues));
+  }, [clickedClues]);
+
+  const handleNewGame = () => {
     localStorage.removeItem('clue-clicked');
+    dispatch(clearClueClicked());
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('clue-clicked');
+    localStorage.removeItem('user');
+    dispatch(clearClueClicked());
+    dispatch(removeUser());
     navigate('/');
   };
 
@@ -42,6 +60,9 @@ const GameTable = () => {
             <Typography variant="h6" fontWeight="bold" align="center">
               <Link to="/stats">Statistics</Link>
             </Typography>
+            <Button variant="contained" color="primary" onClick={handleNewGame}>
+              New Game
+            </Button>
             <Button variant="outlined" color="warning" onClick={handleLogout}>
               Log Out
             </Button>

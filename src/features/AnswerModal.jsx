@@ -11,12 +11,10 @@ import {
   setClueClicked,
   startIsAnswerCorrectChange,
   setIsAnswerCorrect,
-  selectClickedClues,
 } from './categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { useState } from 'react';
-import { useEffect } from 'react';
 
 const style = {
   position: 'absolute',
@@ -34,13 +32,8 @@ const style = {
 const AnswerModal = () => {
   const isModalOpen = useSelector(selectIsModalOpen);
   const clue = useSelector(selectSelectedClue);
-  const clickedClues = useSelector(selectClickedClues);
   const dispatch = useDispatch();
   const [answer, setAnswer] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem('clue-clicked', JSON.stringify(clickedClues));
-  }, [clickedClues]);
 
   const handleClose = () => {
     const isAnswerCorrect = clue.answer.toLowerCase() === answer;
