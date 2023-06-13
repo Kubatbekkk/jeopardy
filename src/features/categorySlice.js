@@ -85,6 +85,9 @@ const categorySlice = createSlice({
     subtractPoints: (state, action) => {
       state.points -= Number(action.payload);
     },
+    clearPoints: (state) => {
+      state.points = 0;
+    },
     setClueClicked: (state, action) => {
       const { id, isCorrect } = action.payload;
       state.clueClicked[id] = isCorrect;
@@ -129,6 +132,7 @@ export const {
   setUser,
   removeUser,
   clearClueClicked,
+  clearPoints,
 } = categorySlice.actions;
 
 // ? selectors

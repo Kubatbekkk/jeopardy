@@ -1,5 +1,10 @@
-import { useSelector } from 'react-redux';
-import { selectClickedClues, selectPoints } from './categorySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  clearClueClicked,
+  clearPoints,
+  selectClickedClues,
+  selectPoints,
+} from './categorySlice';
 import {
   Table,
   TableBody,
@@ -9,10 +14,9 @@ import {
   TableRow,
   Paper,
   Box,
-  Typography,
   Button,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Statistics = () => {
   const answeredQuestions = useSelector(selectClickedClues);
@@ -26,6 +30,17 @@ const Statistics = () => {
     (value) => value === false
   ).length;
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleNewGame = () => {
+    localStorage.removeItem('points');
+    localStorage.removeItem('clue-clicked');
+    dispatch(clearClueClicked());
+    dispatch(clearPoints());
+    navigate('/game');
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 750 }} aria-label="caption table">
@@ -33,20 +48,17 @@ const Statistics = () => {
           <Box
             display="flex"
             alignItems="center"
-            justifyContent="space-between"
+            justifyContent="flex-end"
+            gap="1rem"
           >
-            <Typography variant="h6" fontWeight="bold" align="center">
-              Your Points: {points}
-            </Typography>
-            <Typography variant="h6" fontWeight="bold" align="center">
-              <Link to="/stats">Statistics</Link>
-            </Typography>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={handleNewGame}>
               New Game
             </Button>
-            <Button variant="outlined" color="warning">
-              Log Out
-            </Button>
+            <Link to="/">
+              <Button variant="outlined" color="secondary">
+                Home
+              </Button>
+            </Link>
           </Box>
         </caption>
         <TableHead sx={{ background: '#C2DEDC', color: 'white' }}>

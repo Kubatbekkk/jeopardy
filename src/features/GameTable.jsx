@@ -10,15 +10,15 @@ import { Box, Button, Typography } from '@mui/material';
 import {
   selectTableData,
   selectPoints,
-  removeUser,
   selectClickedClues,
   clearClueClicked,
+  clearPoints,
 } from './categorySlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ClueButton from './ClueButton';
 import AnswerModal from './AnswerModal';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const GameTable = () => {
@@ -26,7 +26,6 @@ const GameTable = () => {
   const points = useSelector(selectPoints);
   const clickedClues = useSelector(selectClickedClues);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem('clue-clicked', JSON.stringify(clickedClues));
@@ -35,16 +34,9 @@ const GameTable = () => {
 
   const handleNewGame = () => {
     localStorage.removeItem('clue-clicked');
-    dispatch(clearClueClicked());
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('clue-clicked');
     localStorage.removeItem('points');
-    localStorage.removeItem('user');
     dispatch(clearClueClicked());
-    dispatch(removeUser());
-    navigate('/');
+    dispatch(clearPoints());
   };
 
   return (
@@ -59,15 +51,14 @@ const GameTable = () => {
             <Typography variant="h6" fontWeight="bold" align="center">
               Your Points: {points}
             </Typography>
-            <Typography variant="h6" fontWeight="bold" align="center">
-              <Link to="/stats">Statistics</Link>
-            </Typography>
             <Button variant="contained" color="primary" onClick={handleNewGame}>
               New Game
             </Button>
-            <Button variant="outlined" color="warning" onClick={handleLogout}>
-              Log Out
-            </Button>
+            <Link to="/stats">
+              <Button variant="outlined" color="warning">
+                Finish Game
+              </Button>
+            </Link>
           </Box>
         </caption>
         <TableHead sx={{ background: '#C2DEDC', color: 'white' }}>
