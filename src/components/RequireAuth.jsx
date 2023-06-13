@@ -1,16 +1,19 @@
 import { useSelector } from 'react-redux';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { selectUser } from '../features/categorySlice';
+import { Navigate, useLocation } from 'react-router-dom';
+import { selectStatus, selectUser } from '../features/categorySlice';
 
-const RequireAuth = () => {
+const RequireAuth = ({ children }) => {
   const user = useSelector(selectUser);
   const location = useLocation();
+  const status = useSelector(selectStatus);
 
-  return user ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/" state={{ from: location }} replace />
-  );
+  if (status === 'loading') return <h2>Loading...</h2>;
+
+  if (!user) {
+    return <Navigate to="/" state={{ from: location }} replace />;
+  }
+
+  return <>{children}</>;
 };
 
 export default RequireAuth;

@@ -30,7 +30,8 @@ const GameTable = () => {
 
   useEffect(() => {
     localStorage.setItem('clue-clicked', JSON.stringify(clickedClues));
-  }, [clickedClues]);
+    localStorage.setItem('points', JSON.stringify(points));
+  }, [clickedClues, points]);
 
   const handleNewGame = () => {
     localStorage.removeItem('clue-clicked');
@@ -39,6 +40,7 @@ const GameTable = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('clue-clicked');
+    localStorage.removeItem('points');
     localStorage.removeItem('user');
     dispatch(clearClueClicked());
     dispatch(removeUser());
