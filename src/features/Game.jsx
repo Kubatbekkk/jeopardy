@@ -6,8 +6,8 @@ import { fetchQuestionByCategory } from './categorySlice';
 import { selectIsAnswerCorrect } from './selectors';
 
 function Game() {
-  const status = useSelector((state) => state.status);
-  const error = useSelector((state) => state.error);
+  const status = useSelector((state) => state.category.status);
+  const error = useSelector((state) => state.category.error);
   const isAnswerCorrect = useSelector(selectIsAnswerCorrect);
 
   const dispatch = useDispatch();

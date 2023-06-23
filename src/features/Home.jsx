@@ -33,7 +33,6 @@ const Home = () => {
 
   const handleSaveUserAndClose = () => {
     if (userName.trim() !== '') {
-      localStorage.setItem('user', userName);
       dispatch(setUser(userName));
       navigate('/game');
     } else {
@@ -42,12 +41,6 @@ const Home = () => {
   };
 
   const handleLogout = () => {
-    const localStorageKeys = ['clue-clicked', 'points', 'user'];
-
-    localStorageKeys.forEach((key) => {
-      localStorage.removeItem(key);
-    });
-
     dispatch(clearClueClicked());
     dispatch(removeUser());
     setUserName('');

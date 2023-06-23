@@ -3,13 +3,13 @@ import axios from 'axios';
 
 const initialState = {
   categoryIDs: [68, 76, 94, 23, 24],
-  user: localStorage.getItem('user') || '',
+  user: '',
   tableData: [],
   selectedClue: null,
   isModalOpen: false,
   isAnswerCorrect: null,
-  points: JSON.parse(localStorage.getItem('points')) || 0,
-  clueClicked: JSON.parse(localStorage.getItem('clue-clicked')) || {},
+  points: 0,
+  clueClicked: {},
   status: 'idle',
   error: null,
 };
@@ -18,9 +18,9 @@ const CATEGORIES_URL = 'http://jservice.io/api';
 
 export const fetchQuestionByCategory = createAsyncThunk(
   'category/fetchQuestionByCategory',
-  async (_, { getState }) => {
+  async () => {
     try {
-      const { categoryIDs } = getState();
+      const categoryIDs = [68, 76, 94, 23, 24];
 
       const categoryData = categoryIDs.map(async (item) => {
         const res = await axios(`${CATEGORIES_URL}/category?id=${item}`);
@@ -116,6 +116,7 @@ const categorySlice = createSlice({
       })
       .addCase(fetchQuestionByCategory.rejected, (state, action) => {
         state.status = 'failed';
+        console.log({ action: action.error.message });
         state.error = action.error.message;
       });
   },
