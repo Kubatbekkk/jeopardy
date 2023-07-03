@@ -6,3 +6,4 @@ export const selectPoints = (state) => state.category.points;
 export const selectIsAnswerCorrect = (state) => state.category.isAnswerCorrect;
 export const selectUser = (state) => state.category.user;
 export const selectStatus = (state) => state.category.status;
+export const selectTimer = (state) => state.category.timer;

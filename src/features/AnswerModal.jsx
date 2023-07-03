@@ -9,11 +9,17 @@ import {
   setClueClicked,
   startIsAnswerCorrectChange,
   setIsAnswerCorrect,
+  decrementTimer,
+  resetTimer,
 } from './categorySlice';
-import { selectIsModalOpen, selectSelectedClue } from './selectors';
+import {
+  selectIsModalOpen,
+  selectSelectedClue,
+  selectTimer,
+} from './selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const style = {
   position: 'absolute',
@@ -34,6 +40,8 @@ const AnswerModal = () => {
   const dispatch = useDispatch();
   const [answer, setAnswer] = useState('');
 
+  const timer = useSelector(selectTimer);
+
   const handleClose = () => {
     const isAnswerCorrect = clue.answer.toLowerCase() === answer;
 
@@ -53,7 +61,24 @@ const AnswerModal = () => {
     dispatch(setIsAnswerCorrect(isAnswerCorrect));
     dispatch(startIsAnswerCorrectChange(null));
     setAnswer('');
+
+    dispatch(resetTimer());
   };
+
+  useEffect(() => {
+    if (timer > 0 && isModalOpen) {
+      const timerId = setInterval(() => {
+        dispatch(decrementTimer());
+      }, 1_000);
+
+      return () => {
+        clearInterval(timerId);
+      };
+    } else if (timer === 0 && isModalOpen) {
+      handleClose();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, timer, isModalOpen]);
 
   const handleAnswer = (e) => {
     const trimmedValue = e.target.value.trim().toLowerCase();
@@ -91,6 +116,14 @@ const AnswerModal = () => {
                 variant="caption"
               >
                 hint: {clue?.answer}
+              </Typography>
+
+              <Typography
+                id="modal-modal-description"
+                sx={{ mt: 2 }}
+                variant="caption"
+              >
+                timer: {timer / 1_000}
               </Typography>
               <Button
                 onClick={handleClose}

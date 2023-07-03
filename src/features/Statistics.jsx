@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectClickedClues, selectPoints } from './selectors';
-import { clearClueClicked, clearPoints } from './categorySlice';
+import { clearClueClicked, clearPoints, setModalState } from './categorySlice';
 import {
   Table,
   TableBody,
@@ -31,13 +31,9 @@ const Statistics = () => {
   const navigate = useNavigate();
 
   const handleNewGame = () => {
-    const localStorageKeys = ['clue-clicked', 'points'];
-    localStorageKeys.forEach((key) => {
-      localStorage.removeItem(key);
-    });
-
     dispatch(clearClueClicked());
     dispatch(clearPoints());
+    dispatch(setModalState(false));
     navigate('/game');
   };
 

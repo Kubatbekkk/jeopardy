@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  categoryIDs: [68, 76, 94, 23, 24],
   user: '',
   tableData: [],
   selectedClue: null,
@@ -10,6 +9,7 @@ const initialState = {
   isAnswerCorrect: null,
   points: 0,
   clueClicked: {},
+  timer: 60_000,
   status: 'idle',
   error: null,
 };
@@ -98,6 +98,12 @@ const categorySlice = createSlice({
     setIsAnswerCorrect: (state, action) => {
       state.isAnswerCorrect = action.payload;
     },
+    decrementTimer: (state) => {
+      state.timer -= 1_000;
+    },
+    resetTimer: (state) => {
+      state.timer = 60_000;
+    },
     setUser: (state, action) => {
       state.user = action.payload;
     },
@@ -133,6 +139,8 @@ export const {
   removeUser,
   clearClueClicked,
   clearPoints,
+  decrementTimer,
+  resetTimer,
 } = categorySlice.actions;
 
 export default categorySlice.reducer;
