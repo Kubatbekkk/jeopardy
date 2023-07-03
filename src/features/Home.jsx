@@ -3,7 +3,12 @@ import Stack from '@mui/material/Stack';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { setUser, removeUser, clearClueClicked } from './categorySlice';
+import {
+  setUser,
+  removeUser,
+  clearClueClicked,
+  clearPoints,
+} from './categorySlice';
 import { selectUser } from './selectors';
 
 const Home = () => {
@@ -40,6 +45,11 @@ const Home = () => {
     }
   };
 
+  const handleNewGame = () => {
+    dispatch(clearClueClicked());
+    dispatch(clearPoints());
+  };
+
   const handleLogout = () => {
     dispatch(clearClueClicked());
     dispatch(removeUser());
@@ -49,7 +59,7 @@ const Home = () => {
   return (
     <>
       {user ? (
-        <Stack width={500} alignContent="center">
+        <Stack width={700} alignContent="center">
           <Typography variant="h4" mb={2} align="center">
             Welcome, {user}
           </Typography>
@@ -58,7 +68,12 @@ const Home = () => {
               <Button variant="contained">Statistics</Button>
             </Link>
             <Link to="/game">
-              <Button variant="contained">Start Game</Button>
+              <Button variant="contained" onClick={handleNewGame}>
+                New Game
+              </Button>
+            </Link>
+            <Link to="/game">
+              <Button variant="contained">Resume Game</Button>
             </Link>
             <Button onClick={handleLogout} variant="contained">
               Logout

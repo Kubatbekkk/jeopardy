@@ -14,22 +14,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import ClueButton from './ClueButton';
 import AnswerModal from './AnswerModal';
 import { Link } from 'react-router-dom';
-// import { useEffect } from 'react';
 
 const GameTable = () => {
   const questionsWithCategories = useSelector(selectTableData);
   const points = useSelector(selectPoints);
-  // const clickedClues = useSelector(selectClickedClues);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   localStorage.setItem('clue-clicked', JSON.stringify(clickedClues));
-  //   localStorage.setItem('points', JSON.stringify(points));
-  // }, [clickedClues, points]);
-
   const handleNewGame = () => {
-    // localStorage.removeItem('clue-clicked');
-    // localStorage.removeItem('points');
     dispatch(clearClueClicked());
     dispatch(clearPoints());
   };
