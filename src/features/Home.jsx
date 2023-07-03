@@ -9,10 +9,13 @@ import {
   clearClueClicked,
   clearPoints,
 } from './categorySlice';
-import { selectUser } from './selectors';
+import { selectUser, selectClickedClues, selectPoints } from './selectors';
 
 const Home = () => {
   const user = useSelector(selectUser);
+  const clickedClues = useSelector(selectClickedClues);
+  const points = useSelector(selectPoints);
+
   const [userName, setUserName] = useState(user);
   const [error, setError] = useState('');
   const userRef = useRef();
@@ -45,21 +48,24 @@ const Home = () => {
     }
   };
 
+  const handleLogout = () => {
+    dispatch(clearClueClicked());
+    dispatch(clearPoints());
+    dispatch(removeUser());
+    setUserName('');
+  };
+
   const handleNewGame = () => {
     dispatch(clearClueClicked());
     dispatch(clearPoints());
   };
 
-  const handleLogout = () => {
-    dispatch(clearClueClicked());
-    dispatch(removeUser());
-    setUserName('');
-  };
+  const isExistingGame = points === 0 && Object.keys(clickedClues).length === 0;
 
   return (
     <>
       {user ? (
-        <Stack width={700} alignContent="center">
+        <Stack width={600} alignContent="center">
           <Typography variant="h4" mb={2} align="center">
             Welcome, {user}
           </Typography>
@@ -73,9 +79,15 @@ const Home = () => {
               </Button>
             </Link>
             <Link to="/game">
-              <Button variant="contained">Resume Game</Button>
+              <Button
+                variant="contained"
+                color="success"
+                disabled={isExistingGame}
+              >
+                Resume Game
+              </Button>
             </Link>
-            <Button onClick={handleLogout} variant="contained">
+            <Button onClick={handleLogout} variant="contained" color="warning">
               Logout
             </Button>
           </Stack>
