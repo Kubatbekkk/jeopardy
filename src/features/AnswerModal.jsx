@@ -123,7 +123,7 @@ const AnswerModal = () => {
                 sx={{ mt: 2 }}
                 variant="caption"
               >
-                timer: {timer / 1_000}
+                Time left: {timer / 1_000}
               </Typography>
               <Button
                 onClick={handleClose}
